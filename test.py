@@ -1,4 +1,4 @@
-def test(a, b):
+def test(a: int, b: int) -> None:
     print(f"{a} + {b}")
 
 
