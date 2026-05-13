@@ -1,8 +1,10 @@
 from fastapi import FastAPI
-from agent_workforce.agent import chat as chat_completion
+from agent_workforce.chat_agent import ChatAgent
 
 app: FastAPI = FastAPI()
 
+# TODO implement singleton pattern
+chat_agent = ChatAgent()
 
 @app.get("/")
 def root():
@@ -11,7 +13,7 @@ def root():
 
 @app.post(path="/chat/{message}")
 async def chat(message: str):
-    return await chat_completion(message)
+    return await chat_agent.chat(message)
 
 
 # add more endpoints if needed
