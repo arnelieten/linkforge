@@ -1,21 +1,17 @@
 import asyncio
-import os
+from agents import Agent, Runner, set_tracing_disabled
+from agents.extensions.models.litellm_model import LitellmModel
 
-from litellm import acompletion
+set_tracing_disabled(True)
 
-import config
-
-
+agent = Agent(
+    name="Poet",
+    instructions="You are a poet!",
+    model=LitellmModel(model="gemini/gemini-2.5-flash-lite"),
+)
 async def chat():
-    response = await acompletion(
-        model="gemini/gemini-2.5-flash-lite",
-        messages=[{"role": "user", "content": "Write a short poem"}],
-        stream=True,
-    )
-    async for chunk in response:
-        print(chunk.choices[0].delta.content or "", end="")
-
-
+    result = await Runner.run(agent, "Write a short poem with the word rose")
+    print(result.final_output)
 
 
 if __name__ == "__main__":
