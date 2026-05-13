@@ -1,12 +1,15 @@
 import asyncio
+from pathlib import Path
+
 from agents import Agent, Runner, set_tracing_disabled
 from agents.extensions.models.litellm_model import LitellmModel
+from agent_workforce.utils.prompt import load_prompt
 
 set_tracing_disabled(True)
 
 agent = Agent(
     name="Poet",
-    instructions="You are a poet!",
+    instructions=load_prompt(Path(__file__).parent / "prompts" / "prompt.md"),
     model=LitellmModel(model="gemini/gemini-2.5-flash-lite"),
 )
 async def chat(message: str):
