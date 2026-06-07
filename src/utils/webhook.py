@@ -44,10 +44,11 @@ async def handle_webhook(request_body: dict, request_headers: dict, agent: BaseA
     ):
         return
 
-    message = request_body.get("message")
-    text = message.get("text")
-    reply = await agent.chat(text)
+    message = request_body["message"]
+    text = message.get("text") or {}
+    chat_id = message["chat"]["id"]
+    reply = await agent.chat(message=text, session_id=chat_id)
     await send_telegram_message(
-        chat_id=message["chat"]["id"],
+        chat_id=chat_id,
         message=reply,
     )

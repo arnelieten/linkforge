@@ -2,8 +2,9 @@ from abc import ABC
 from pathlib import Path
 
 from agent_workforce.utils.prompt import load_prompt
-from agents import Agent, Runner, set_tracing_disabled
+from agents import Agent, Runner, SQLiteSession, SessionSettings
 from agents.extensions.models.litellm_model import LitellmModel
+from config import SQLITE_DB_PATH, SQLITE_SESSION_LIMIT
 
 class BaseAgent(ABC):
     name: str
@@ -17,6 +18,14 @@ class BaseAgent(ABC):
         )
 
 
-    async def chat(self, message: str) -> str:
-        result = await Runner.run(self.agent, message)
-        return result.final_output
+    async def chat(self, message: str, session_id: str) -> str:
+        session = SQLiteSession(
+            session_id=session_id,
+            db_path=SQLITE_DB_PATH,
+            session_settings=SessionSettings(limit=SQLITE_SESSION_LIMIT)
+        )
+        try:
+            result = await Runner.run(self.agent, message, session=session)
+            return result.final_output
+        finally:
+            session.close()
