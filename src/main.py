@@ -1,6 +1,8 @@
-from fastapi import FastAPI, Request
 from agent_workforce.chat_agent import ChatAgent
-from utils.webhook_auth import authenticate_user_id, authenticate_header_secret
+from utils.webhook import handle_webhook
+
+from fastapi import FastAPI, Request
+import httpx
 
 app: FastAPI = FastAPI()
 
@@ -14,13 +16,12 @@ def root():
 
 @app.post(path="/telegram/webhook")
 async def chat(request: Request):
-    request_body = await request.json()
-    request_header = request.headers
-    if authenticate_user_id(request_body=request_body) and authenticate_header_secret(request_header=request_header):
-        message = request_body.get("message")
-        text = message.get("text")
-        response = await chat_agent.chat(text)
-        print(response)
+    await handle_webhook(
+        request_body=await request.json(),
+        request_headers=request.headers,
+        agent=chat_agent,
+    )
+    return
 
 
 # add more endpoints if needed
