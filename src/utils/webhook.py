@@ -6,9 +6,9 @@ from src.agent_workforce.base_agent import BaseAgent
 
 # Authentication for the webhook
 def get_request_user_id(request_body: dict) -> str:
-    message = request_body.get('message')
-    chat = message.get('chat')
-    return str(chat.get('id'))
+    message = request_body['message']
+    chat = message['chat']
+    return str(chat['id'])
 
 def verify_user_id(user_id: str) -> bool:
     return secrets.compare_digest(user_id, BOTFATHER_USER_ID)
@@ -45,10 +45,20 @@ async def handle_webhook(request_body: dict, request_headers: dict, agent: BaseA
         return
 
     message = request_body["message"]
-    text = message.get("text") or {}
     chat_id = message["chat"]["id"]
-    reply = await agent.chat(message=text, session_id=chat_id)
-    await send_telegram_message(
-        chat_id=chat_id,
-        message=reply,
-    )
+    text = message.get("text")
+
+    if text:
+        reply = await agent.chat(message=text, session_id=chat_id)
+        await send_telegram_message(
+            chat_id=chat_id,
+            message=reply,
+        )
+    else:
+        reply = "Whoopsie-Daisy, I can only handle text messages!"
+        await send_telegram_message(
+            chat_id=chat_id,
+            message=reply,
+        )
+
+
