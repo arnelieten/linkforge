@@ -2,7 +2,7 @@ from config import BOTFATHER_USER_ID, BOTFATHER_WEBHOOK_SECRET, BOTFATHER_API_KE
 
 import secrets
 import httpx
-from src.agent_workforce.base_agent import BaseAgent
+from src.agent_workforce.chat_agent import ChatAgent
 
 # Authentication for the webhook
 def get_request_user_id(request_body: dict) -> str:
@@ -37,7 +37,7 @@ async def send_telegram_message(chat_id: str, message: str) -> None:
         )
 
 
-async def handle_webhook(request_body: dict, request_headers: dict, agent: BaseAgent):
+async def handle_webhook(request_body: dict, request_headers: dict, agent: ChatAgent):
     if not (
         authenticate_user_id(request_body=request_body)
         and authenticate_header_secret(request_header=request_headers)
