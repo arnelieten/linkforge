@@ -1,5 +1,8 @@
-from fastapi import FastAPI
 from agent_workforce.chat_agent import ChatAgent
+from utils.webhook import handle_webhook
+
+from fastapi import FastAPI, Request
+import httpx
 
 app: FastAPI = FastAPI()
 
@@ -11,9 +14,14 @@ def root():
     return {"Home Page"}
 
 
-@app.post(path="/chat/{message}")
-async def chat(message: str):
-    return await chat_agent.chat(message)
+@app.post(path="/telegram/webhook")
+async def chat(request: Request):
+    await handle_webhook(
+        request_body=await request.json(),
+        request_headers=request.headers,
+        agent=chat_agent,
+    )
+    return
 
 
 # add more endpoints if needed
