@@ -5,7 +5,7 @@ def init_tables() -> None:
     conn = connect_to_db()
     run_query(conn, """
         CREATE TABLE IF NOT EXISTS state (
-            chat_id    TEXT PRIMARY KEY,
+            chat_id    INTEGER PRIMARY KEY,
             draft      TEXT,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
@@ -13,7 +13,7 @@ def init_tables() -> None:
     run_query(conn, """
         CREATE TABLE IF NOT EXISTS drafts (
             id          INTEGER PRIMARY KEY AUTOINCREMENT,
-            chat_id     TEXT NOT NULL,
+            chat_id     INTEGER NOT NULL,
             content     TEXT NOT NULL,
             approved_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )

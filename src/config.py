@@ -13,7 +13,7 @@ ANTROPIC_API_KEY = os.environ["ANTROPIC_API_KEY"]
 BOTFATHER_API_KEY=os.environ["BOTFATHER_API_KEY"] # auth to set up webhook
 BOTFATHER_WEBHOOK_SECRET=os.environ["BOTFATHER_WEBHOOK_SECRET"] # auth to check requests
 BOTFATHER_LINK=os.environ["BOTFATHER_LINK"]
-BOTFATHER_USER_ID=os.environ["BOTFATHER_USER_ID"]
+BOTFATHER_USER_ID=int(os.environ["BOTFATHER_USER_ID"])
 
 # Sqlite database
 SQLITE_DB_PATH=Path(os.environ["SQLITE_DB_PATH"])

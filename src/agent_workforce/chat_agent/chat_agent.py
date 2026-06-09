@@ -19,7 +19,7 @@ class ChatAgent:
             tools=[save_draft],
         )
 
-    async def chat(self, message: str, session_id: str) -> str:
+    async def chat(self, message: str, session_id: int) -> str:
         session = SQLiteSession(
             session_id=session_id,
             db_path=SQLITE_DB_PATH,

@@ -10,6 +10,5 @@ __all__ = [
     "approve_current_draft",
     "get_approved_drafts",
     "get_current_draft",
-    "init_tables",
     "save_current_draft",
 ]

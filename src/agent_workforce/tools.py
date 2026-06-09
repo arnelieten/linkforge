@@ -6,7 +6,7 @@ from database import save_current_draft
 
 @dataclass
 class ChatContext:
-    chat_id: str
+    chat_id: int
 
 
 @function_tool

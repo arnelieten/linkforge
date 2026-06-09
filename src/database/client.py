@@ -8,12 +8,10 @@ def connect_to_db() -> sqlite3.Connection:
     return sqlite3.connect(SQLITE_DB_PATH)
 
 
-def run_query(conn: sqlite3.Connection, query: str, params=None) -> None:
-    if params:
-        conn.execute(query, params)
-    else:
-        conn.execute(query)
+def run_query(conn: sqlite3.Connection, query: str, params=None) -> sqlite3.Cursor:
+    cursor = conn.execute(query, params) if params is not None else conn.execute(query)
     conn.commit()
+    return cursor
 
 
 def close_db(conn: sqlite3.Connection) -> None:
