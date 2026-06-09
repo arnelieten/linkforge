@@ -1,8 +1,7 @@
 from agent_workforce.chat_agent import ChatAgent
-from utils.webhook import handle_webhook
+from telegram.webhook import handle_webhook
 
 from fastapi import FastAPI, Request
-import httpx
 
 app: FastAPI = FastAPI()
 
