@@ -62,3 +62,9 @@ async def handle_webhook(request_body: dict, request_headers: dict, agent: ChatA
         )
 
 
+# implement slash commands
+# .draft retrieves last updated draft
+# .research retrieves last interesting research links
+# .confirm puts draft as ready to go on linkedin
+# .help lists the dot commands possible and description
+# .restart clears history of agents to start over

@@ -15,6 +15,7 @@ class ChatAgent:
             name=self.name,
             instructions=load_prompt(Path(__file__).parent / "prompts" / f"{self.name}_prompt.md"),
             model=LitellmModel(model=self.model),
+            tools=[],
         )
 
     async def chat(self, message: str, session_id: str) -> str:
