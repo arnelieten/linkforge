@@ -42,13 +42,3 @@ def approve_current_draft(chat_id: int) -> str:
     finally:
         close_db(conn)
 
-
-def get_approved_drafts(chat_id: int) -> list[str]:
-    conn = connect_to_db()
-    rows = run_query(
-        conn,
-        "SELECT content FROM drafts WHERE chat_id = ? ORDER BY approved_at DESC",
-        (chat_id,),
-    ).fetchall()
-    close_db(conn)
-    return [r[0] for r in rows]

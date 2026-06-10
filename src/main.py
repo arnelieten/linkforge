@@ -31,6 +31,3 @@ async def chat(request: Request):
         telegram_client=request.app.state.telegram_client,
     )
     return
-
-
-# add more endpoints if needed
