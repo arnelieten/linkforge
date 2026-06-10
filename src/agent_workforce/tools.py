@@ -15,29 +15,26 @@ def save_draft(ctx: RunContextWrapper[ChatContext], draft: str) -> str:
     save_current_draft(ctx.context.chat_id, draft)
     return "Draft saved."
 
+# 1. Exploration
+#       - angle generator
+#       - split large post into smaller ones based on link to medium or other blogpost (only define topic & angles)
+#       - content suggestor reads database last articles and finds content that matches my goal
 
-# voice match
 
-# angle generator
+# 2. Writing
+#       - main writer tool
+#       - hashtag suggester
+#       - voice match
+#       - hook generator
 
-# posts criticiser find weaknesses and technical inaccuracies
 
-# SEO optimization
+# 3. Refining
+#       - posts criticiser find weaknesses and technical inaccuracies
+#       - humanize post
+#       - linkedin formatter
+#       - meme visual idea generator (multimodal) the drake meme (not whatsapp but likes telegram)
 
-# linkedin formatter
 
-# hashtag suggester
-
-# humanize post
-
-# split large post into smaller ones based on link to medium or other blogpost
-
-# content suggestor reads database last articles and finds content that matches my goal
-
-# hook generator
-
-# meme visual idea generator (multimodal) the drake meme (not whatsapp but likes telegram)
-
-# contrarian comment generator
-
-# confirming comment generator
+# 4. Comments
+#       - contrarian comment generator
+#       - confirming comment generator
