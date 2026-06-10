@@ -6,6 +6,8 @@ telegram integration is just way less administrative work so easier to setup for
 ## database choice
 sqlite since only 1 user will be using it and sqlitesession works well with the agents
 
+Sqlitesession uses some tables, created 1 table for state, created 1 table for approved drafts
+
 ## .commands
 chose . instead of / commands just because it is easier on mobile to type a dot then to type a slash on my keyboard.
 

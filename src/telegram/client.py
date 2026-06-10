@@ -6,8 +6,8 @@ class TelegramClient:
         self._base_url = f"https://api.telegram.org/bot{api_key}"
         self._http_client = http_client
 
-    async def send_message(self, chat_id: int, text: str) -> None:
+    async def send_message(self, chat_id: int, message: str) -> None:
         await self._http_client.post(
             f"{self._base_url}/sendMessage",
-            json={"chat_id": chat_id, "text": text},
+            json={"chat_id": chat_id, "text": message},
         )

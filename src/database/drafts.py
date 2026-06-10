@@ -13,23 +13,23 @@ def save_current_draft(chat_id: int, message: str) -> None:
     close_db(conn)
 
 
-def get_current_draft(chat_id: int) -> str | None:
+def get_current_draft(chat_id: int) -> str:
     conn = connect_to_db()
     row = run_query(
         conn, "SELECT draft FROM state WHERE chat_id = ?", (chat_id,)
     ).fetchone()
     close_db(conn)
-    return row[0] if row else None
+    return row[0] if row and row[0] else "No draft found!"
 
 
-def approve_current_draft(chat_id: int) -> bool:
+def approve_current_draft(chat_id: int) -> str:
     conn = connect_to_db()
     try:
         row = run_query(
             conn, "SELECT draft FROM state WHERE chat_id = ?", (chat_id,)
         ).fetchone()
         if not row or not row[0]:
-            return False
+            return "No draft found!"
         with conn:
             conn.execute(
                 "INSERT INTO drafts (chat_id, content) VALUES (?, ?)", (chat_id, row[0])
@@ -38,7 +38,7 @@ def approve_current_draft(chat_id: int) -> bool:
                 "UPDATE state SET draft = NULL, updated_at = CURRENT_TIMESTAMP WHERE chat_id = ?",
                 (chat_id,),
             )
-        return True
+        return "Draft approved!"
     finally:
         close_db(conn)
 
