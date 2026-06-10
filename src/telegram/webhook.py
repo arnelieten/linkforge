@@ -1,11 +1,11 @@
-from agent_workforce.chat_agent import ChatAgent
+from agent_workforce.super_agent import SuperAgent
 from database import get_current_draft, approve_current_draft
 from telegram.auth import authenticate_header_secret, authenticate_user_id
 from telegram.client import TelegramClient
 from utils.logger import logger
 
 
-async def handle_webhook(request_body: dict, request_headers: dict, agent: ChatAgent, telegram_client: TelegramClient):
+async def handle_webhook(request_body: dict, request_headers: dict, agent: SuperAgent, telegram_client: TelegramClient):
     if not authenticate_header_secret(request_header=request_headers):
         logger.warning("rejected webhook: bad/missing secret header")
         return
