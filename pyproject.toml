@@ -7,6 +7,7 @@ dependencies = [
     "litellm>=1.83.0",
     "openai-agents[litellm]>=0.14.6",
     "ruff>=0.15.10",
+    "telegramify-markdown>=1.1.5",
 ]
 
 [tool.ruff]

@@ -14,7 +14,13 @@ chose . instead of / commands just because it is easier on mobile to type a dot 
 Also the . commands are more administrative functions and do not need to be integrationed or kept in the chat memory. No injection in the sqlitesession or need for a custom session management solution.
 
 ## agent & tools
-wanted natural language intereaction with the linkedin post generator therefore agent to route to the right tools. Subagents seemed overkill in this situation, and tools are more deterministic.
+wanted natural language intereaction with the linkedin post generator therefore agent to route to the right tools. Subagents are deemed necessary to let the tools also have websearch or database
+functionality.
 
 ## genai gateway
 relying on litellm to switch between models easily. Google has free tier on some models which is nice to use for the interaction with the chat_agent and power the research_agent. However for real writing Antropic models are better and those will be injected in the function tools for the chat_agent
+
+
+## markdown formatting
+repsonses from llm are not in the right format to be rendered in telegram app
+therefore use the telegramify_markdown library.
