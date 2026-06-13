@@ -6,7 +6,7 @@ from agents.extensions.models.litellm_model import LitellmModel
 
 _agent = Agent(
     name="ideation_agent",
-    instructions=load_prompt(Path(__file__).parent / "prompt.md"),
+    instructions=load_prompt(Path(__file__).parent / "prompt.jinja"),
     model=LitellmModel(model="gemini/gemini-2.5-flash"),
 )
 

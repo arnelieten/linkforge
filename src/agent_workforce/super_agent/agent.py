@@ -14,7 +14,7 @@ class SuperAgent:
     def __init__(self) -> None:
         self.agent = Agent(
             name=self.name,
-            instructions=load_prompt(Path(__file__).parent / "prompt.md"),
+            instructions=load_prompt(Path(__file__).parent / "prompt.jinja"),
             model=LitellmModel(model=self.model),
             tools=TOOLS,
         )
