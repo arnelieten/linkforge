@@ -212,4 +212,4 @@ data/
 *.db
 
 # Examples
-**/examples/*
+**/prompt_plugins/*
