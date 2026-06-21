@@ -1,12 +1,15 @@
-from pathlib import Path
-
-from agent_workforce.prompt import load_prompt
 from agents import Agent
 from agents.extensions.models.litellm_model import LitellmModel
 
+from agent_workforce.prompt import PromptLoader
+
+agent_name = "writing_agent"
+
 _agent = Agent(
-    name="writing_agent",
-    instructions=load_prompt(Path(__file__).parent / "prompt.md"),
+    name=agent_name,
+    instructions=PromptLoader(agent_name)._load_prompt(
+        plugins=["linkedin_identity"], example_count=2
+    ),
     model=LitellmModel(model="gemini/gemini-2.5-flash"),
 )
 
