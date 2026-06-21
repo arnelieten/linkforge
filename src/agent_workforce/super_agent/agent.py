@@ -1,20 +1,20 @@
-from pathlib import Path
-
-from agent_workforce.prompt import load_prompt
-from agent_workforce.tools import TOOLS, ChatContext
-from agents import Agent, Runner, SQLiteSession, SessionSettings
+from agents import Agent, Runner, SessionSettings, SQLiteSession
 from agents.extensions.models.litellm_model import LitellmModel
+
+from agent_workforce.prompt import PromptLoader
+from agent_workforce.tools import TOOLS, ChatContext
 from config import SQLITE_DB_PATH, SQLITE_SESSION_LIMIT
 
 
 class SuperAgent:
     name = "super_agent"
     model = "gemini/gemini-2.5-flash"
+    prompt_loader = PromptLoader(name)
 
     def __init__(self) -> None:
         self.agent = Agent(
             name=self.name,
-            instructions=load_prompt(Path(__file__).parent / "prompt.jinja"),
+            instructions=self.prompt_loader._load_prompt(),
             model=LitellmModel(model=self.model),
             tools=TOOLS,
         )
