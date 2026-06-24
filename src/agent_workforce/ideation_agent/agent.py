@@ -7,7 +7,7 @@ agent_name = "ideation_agent"
 
 _agent = Agent(
     name=agent_name,
-    instructions=PromptLoader(agent_name)._load_prompt(),
+    instructions=PromptLoader(agent_name)._load_prompt(plugins=["linkedin_identity"]),
     model=LitellmModel(model="gemini/gemini-2.5-flash"),
 )
 
