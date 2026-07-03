@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 
-from agent_workforce.ideation_agent import ideation_tool
+from agents import RunContextWrapper, function_tool
+
 from agent_workforce.refining_agent import refining_tool
 from agent_workforce.writing_agent import writing_tool
-from agents import RunContextWrapper, function_tool
 from database import save_current_draft
 
 
@@ -19,4 +19,4 @@ def save_draft(ctx: RunContextWrapper[ChatContext], draft: str) -> str:
     return "Draft saved."
 
 
-TOOLS = [save_draft, ideation_tool, writing_tool, refining_tool]
+TOOLS = [save_draft, writing_tool, refining_tool]
