@@ -1,5 +1,5 @@
 from agent_workforce.super_agent import SuperAgent
-from database import approve_current_draft, get_current_draft
+from database import approve_current_draft, delete_memory, get_current_draft
 from telegram.auth import authenticate_header_secret, authenticate_user_id
 from telegram.client import TelegramClient
 from utils.logger import logger
@@ -53,17 +53,17 @@ async def handle_dot_commands(message: str, chat_id: int) -> str:
             return "implement research functionality"
 
         case ".approve":
-            succeeded_message = approve_current_draft(chat_id=chat_id)
-            return succeeded_message
+            approve_current_draft(chat_id=chat_id)
+            return "Draft approved!"
 
         case ".help":
             # list all .commands
             return "implement help functionality"
 
-        case ".restart":
-            # TODO implement
-            # clears history of agents (session & state draft) to start over
-            return "restart functionality to be implemented"
+        case ".refresh":
+            # clears history (session & state) leaves drafts unchanged.
+            delete_memory(chat_id=chat_id)
+            return "Session and state refreshed."
 
         case _:
             return "Unknown command. Try .help."

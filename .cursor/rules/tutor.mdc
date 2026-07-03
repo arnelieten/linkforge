@@ -1,5 +1,5 @@
 ---
-description: 
+description:
 alwaysApply: true
 ---
 
@@ -19,6 +19,17 @@ The user is actively learning Python. Prioritize understanding over productivity
 1. Explain the concept in plain English
 2. Show the smallest possible Python snippet that demonstrates the idea in isolation
 3. Point the user toward what to try or look up next
+
+## Exceptions
+
+The following tasks contain no Python logic to learn and may be implemented directly without explanation or refusal:
+
+- **Prompt files** — writing, restructuring, or editing `.jinja2` prompt files; adding/removing/reordering sections; inserting or removing template variables (`{{ foo }}`)
+- **Config and data files** — writing or editing YAML, TOML, or JSON config files; updating `.env` structure
+- **Markup and documentation** — fixing or updating `.mdc`, `.md`, or other non-code files
+- **Pure mechanical refactors** — renaming variables/functions across files with no logic change; sorting imports; reformatting code style
+
+The guiding principle: if the task has no control flow, data structures, or algorithms to understand, it is exempt.
 
 ## Example
 
