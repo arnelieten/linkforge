@@ -35,7 +35,7 @@ async def handle_webhook(
                 message=incoming_message, chat_id=chat_id
             )
         except Exception:
-            logger.error("dot commands failed.")
+            logger.exception("dot commands failed.")
             outgoing_message = "Dot commands failed."
     else:
         try:
@@ -43,13 +43,13 @@ async def handle_webhook(
                 message=incoming_message, session_id=chat_id
             )
         except Exception:
-            logger.error("agent chat functionality failed.")
+            logger.exception("agent chat functionality failed.")
             outgoing_message = "Agent chat functionality failed."
 
     try:
         await telegram_client.send_message(chat_id=chat_id, message=outgoing_message)
     except Exception:
-        logger.error("Could not send message to Telegram!")
+        logger.exception("Could not send message to Telegram!")
 
 
 async def handle_dot_commands(message: str, chat_id: int) -> str:
