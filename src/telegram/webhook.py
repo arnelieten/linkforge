@@ -30,15 +30,26 @@ async def handle_webhook(
     if not incoming_message:
         outgoing_message = "Whoopsie-Daisy, I can only handle text messages!"
     elif incoming_message.strip().startswith("."):
-        outgoing_message = await handle_dot_commands(
-            message=incoming_message, chat_id=chat_id
-        )
+        try:
+            outgoing_message = await handle_dot_commands(
+                message=incoming_message, chat_id=chat_id
+            )
+        except Exception:
+            logger.error("dot commands failed.")
+            outgoing_message = "Dot commands failed."
     else:
-        outgoing_message = await agent.chat(
-            message=incoming_message, session_id=chat_id
-        )
+        try:
+            outgoing_message = await agent.chat(
+                message=incoming_message, session_id=chat_id
+            )
+        except Exception:
+            logger.error("agent chat functionality failed.")
+            outgoing_message = "Agent chat functionality failed."
 
-    await telegram_client.send_message(chat_id=chat_id, message=outgoing_message)
+    try:
+        await telegram_client.send_message(chat_id=chat_id, message=outgoing_message)
+    except Exception:
+        logger.error("Could not send message to Telegram!")
 
 
 async def handle_dot_commands(message: str, chat_id: int) -> str:
@@ -48,17 +59,13 @@ async def handle_dot_commands(message: str, chat_id: int) -> str:
             current_draft = get_current_draft(chat_id=chat_id)
             return current_draft
 
-        case ".research":
-            # retrieves last interesting research links
-            return "implement research functionality"
-
         case ".approve":
             approve_current_draft(chat_id=chat_id)
             return "Draft approved!"
 
         case ".help":
             # list all .commands
-            return "implement help functionality"
+            return ".draft (retrieves last updated draft); .approve (approves the current draft); .refresh (clears session & current draft)"
 
         case ".refresh":
             # clears history (session & state) leaves drafts unchanged.
