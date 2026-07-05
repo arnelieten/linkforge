@@ -213,3 +213,6 @@ data/
 
 # Examples
 **/prompt_plugins/*
+
+# Drafts
+**/linkedin-drafts/**
